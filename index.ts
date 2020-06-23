@@ -5,3 +5,4 @@ export { requestContextMiddleware } from './middleware/request-context';
 export { queryStringParser } from './middleware/query-string-parser';
 export { apiErrorMiddleware } from './middleware/api-error';
 export { paginationLinkMiddleware } from './middleware/pagination-link';
+export { validate } from './middleware/validation';
