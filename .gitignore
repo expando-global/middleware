@@ -17,7 +17,3 @@ node_modules/
 .env
 
 dist
-
-**/*.d.ts
-**/*.js
-**/*.js.map
