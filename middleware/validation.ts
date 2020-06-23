@@ -20,7 +20,7 @@ export function validate(schemas: Schemas): Middleware {
                 context.request[requestField] || context[requestField] || null,
                 schema,
                 {
-                    allowUnknown: true,
+                    allowUnknown: false,
                 },
             );
 
