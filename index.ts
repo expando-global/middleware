@@ -6,8 +6,8 @@ export { sortQueryParser } from './middleware/sort-query-parser';
 export { apiErrorMiddleware } from './middleware/api-error';
 export { paginationLinkMiddleware } from './middleware/pagination-link';
 export { validate } from './middleware/validation';
+export { makeSortSchema } from './schemas/sort-schema';
 export {
     GenericQuerySchema,
     PaginationQuerySchema,
-    makeSortSchema,
 } from './schemas/query-schemas';

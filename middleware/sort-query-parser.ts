@@ -1,6 +1,7 @@
 import { Context, Next } from 'koa';
 import _ from 'lodash';
 import { BadRequest } from 'expando-api-errors';
+import { SORT_QUERY_ERROR, SortQueryRegex } from '../schemas/sort-schema';
 
 function parseSort(sortQuery?: string | string[]) {
     if (!sortQuery) return undefined;
@@ -8,14 +9,10 @@ function parseSort(sortQuery?: string | string[]) {
     const sortByQuery = Array.isArray(sortQuery) ? sortQuery : [sortQuery];
 
     const sortByPairs = sortByQuery.map((sortByEntry) => {
-        const orderAndFieldMatch = sortByEntry
-            .match(/(asc|desc)\(([\w\s-]+)\)/i)
-            ?.slice(1);
+        const orderAndFieldMatch = sortByEntry.match(SortQueryRegex)?.slice(1);
 
         if (!orderAndFieldMatch || orderAndFieldMatch.length !== 2)
-            throw new BadRequest(
-                `'${sortByEntry}' is not a valid sort format. Valid examples: 'asc(fieldName)' or 'desc(fieldName)'`,
-            );
+            throw new BadRequest(`'${sortByEntry}': ${SORT_QUERY_ERROR}`);
 
         return orderAndFieldMatch;
     });
