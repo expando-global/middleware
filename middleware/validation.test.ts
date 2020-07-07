@@ -47,9 +47,9 @@ test('successfully rejects invalid body', async (t) => {
     t.is(next.hasBeenCalled, false);
 });
 
-test('successfully validates query', async (t) => {
+test('successfully validates and casts query', async (t) => {
     const middleware = validate({
-        query: Joi.object({ limit: Joi.string().required() }),
+        query: Joi.object({ limit: Joi.number().required() }),
     });
 
     const next = makeMockFn<Next>();
@@ -59,6 +59,7 @@ test('successfully validates query', async (t) => {
 
     t.true(next.hasBeenCalled);
     t.false(mockContext.status === 400);
+    t.is(typeof mockContext.request.query.limit, 'number');
 });
 
 test('successfully rejects invalid query', async (t) => {
