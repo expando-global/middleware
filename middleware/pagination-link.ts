@@ -12,23 +12,19 @@ function provideNextLink(
     if (items) {
         if (!items.length || items.length < pageLimit) return;
 
-        const lastItem = items[items.length - 1];
+        const { path } = context.request;
 
-        if (_.has(lastItem, 'id')) {
-            const { path } = context.request;
+        const nextPageQs = qs.stringify({
+            ...requestQuery,
+            page: context.query.page + 1 || 2,
+        });
+        const nextPageLink = path + '?' + nextPageQs;
 
-            const nextPageQs = qs.stringify({
-                ...requestQuery,
-                page: context.query.pageNumber + 1 || 2,
-            });
-            const nextPageLink = path + '?' + nextPageQs;
-
-            _.set(context.body, '_links.next', {
-                title: 'next page',
-                href: nextPageLink,
-                method: context.request.method,
-            });
-        }
+        _.set(context.body, '_links.next', {
+            title: 'next page',
+            href: nextPageLink,
+            method: context.request.method,
+        });
     }
 }
 
