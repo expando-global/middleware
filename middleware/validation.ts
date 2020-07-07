@@ -34,11 +34,13 @@ export function validate(schemas: Schemas): Middleware {
                     }`,
                 );
 
-            // @ts-ignore
-            if (context?.request?.[requestField])
+            for (const key in value) {
                 // @ts-ignore
-                context.request[requestField] = value;
-            else context[requestField] = value;
+                if (context?.request?.[requestField])
+                    // @ts-ignore
+                    context.request[requestField][key] = value[key];
+                else context[requestField][key] = value[key];
+            }
         }
         await next();
     };
