@@ -8,18 +8,28 @@ import Joi from '@hapi/joi';
 
 import { validate } from './validation';
 
-test('successfully validates body', async (t) => {
+test('successfully validates and casts body', async (t) => {
     const middleware = validate({
-        body: Joi.array().items(Joi.object({ id: Joi.string().required() })),
+        body: Joi.object({
+            requestAt: Joi.date().required(),
+            items: Joi.array().items(
+                Joi.object({ id: Joi.string().required() }),
+            ),
+        }),
     });
 
     const next = makeMockFn<Next>();
     const mockContext = makeMockContext();
+    mockContext.request.body = {
+        requestAt: '2020-06-23T16:55:35.379Z',
+        items: mockContext.request.body,
+    };
 
     await middleware(mockContext, next);
 
     t.is(next.hasBeenCalled, true);
     t.false(mockContext.status === 400);
+    t.is(typeof mockContext.request.body.requestAt, 'object');
 });
 
 test('successfully rejects invalid body', async (t) => {

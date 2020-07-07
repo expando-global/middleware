@@ -33,6 +33,12 @@ export function validate(schemas: Schemas): Middleware {
                         error.message
                     }`,
                 );
+
+            // @ts-ignore
+            if (context?.request?.[requestField])
+                // @ts-ignore
+                context.request[requestField] = value;
+            else context[requestField] = value;
         }
         await next();
     };
