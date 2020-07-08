@@ -43,6 +43,7 @@
     "@types/lodash": "4.14.150",
     "@types/mongodb": "3.5.16",
     "@types/qs": "6.9.2",
+    "@types/query-string": "^6.3.0",
     "dotenv": "8.2.0",
     "expando-api-errors": "^1.1.0",
     "expando-request-context": "^1.1.1",
@@ -53,7 +54,8 @@
     "koa-compose": "4.1.0",
     "lodash": "4.17.15",
     "mongodb": "3.5.7",
-    "qs": "6.9.4"
+    "qs": "6.9.4",
+    "query-string": "^6.13.1"
   },
   "prettier": {
     "tabWidth": 4,
